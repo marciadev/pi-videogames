@@ -44,12 +44,12 @@ const getAllVideogames = async () => {
   const dbInfo = await getDbVideogames();
   const format = dbInfo.map((el) => {
     return {
-      name: el.name,
       id: el.id,
-      releaseDate: el.released,
+      name: el.name,
+      releaseDate: el.releaseDate,
       rating: el.rating,
       platforms: el.platforms,
-      imageUrl: el.background_image,
+      imageUrl: el.imageUrl,
       genres: el.genres.map((genre) => genre.name),
     };
   });

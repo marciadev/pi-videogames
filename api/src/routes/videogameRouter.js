@@ -43,17 +43,12 @@ videogameRouter.post("/create", async (req, res) => {
         await videogameCreated.addGenre(generoDb)
     })
     
-    // const allGenres= await Genre.findAll({
-    //     where: {
-    //         id:genres
-    //     }
-    // })
-    //     await videogameCreated.addGenres(allGenres);
-    //     return res.send(videogameCreated);
+    return res.send(videogameCreated);
+
     } catch (e) {
         console.log(e)
-        return res.status(500).send(e);
-  }
+        return res.status(404).send(e);
+    }
 });
 
 module.exports = videogameRouter;

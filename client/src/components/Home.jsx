@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getVideogames } from "../actions";
 import { Link } from "react-router-dom";
 import { CardVideogame } from "./CardVideogame";
-import FilterByGenre from "./FilterByGenre"
+import FilterByGenre from "./FilterByGenre";
 import { getGenres } from "../actions";
-
+import SearchBar from "./SearchBar";
 
 export function Home() {
   const dispatch = useDispatch();
@@ -19,13 +19,13 @@ export function Home() {
   const handleClick = (e) => {
     dispatch(getVideogames(e));
   };
-  const handleChange = (e)=>{
-    dispatch(getGenres(e.target.value))
-  }
+  const handleChange = (e) => {
+    dispatch(getGenres(e.target.value));
+  };
 
   return (
     <div>
-
+      <SearchBar />
       <Link to="/create"> Create Videogame </Link>
       <h1>The Videogames'Corner</h1>
       <button
@@ -35,8 +35,12 @@ export function Home() {
       >
         Reload videogames
       </button>
-        <FilterByGenre value="value" onChange={(e) => {
-          handleChange(e)}}/>
+      <FilterByGenre
+        value="value"
+        onChange={(e) => {
+          handleChange(e);
+        }}
+      />
       <div>
         <select>
           <option value="asc"> Ascendent </option>

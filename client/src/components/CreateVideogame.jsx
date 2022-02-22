@@ -58,7 +58,7 @@ export function CreateVideogame() {
     <div>
       <Link to='/home'><button>Back</button></Link>
       <h1>Create your own Videogame</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e)=>{handleSubmit(e)}}>
         <div>
         <label>Name:</label>
         <input name="name" value={newVideogame.name} onChange={handleChange} />
@@ -110,7 +110,7 @@ export function CreateVideogame() {
             return <option key={gen.id} value={gen.id}>{gen.name}</option>
             })}
         </select>
-        <ul>{newVideogame.genres.map((g, index)=> <li key={index}>{g + ", "}</li>)}</ul>
+        {newVideogame.genres.map((g, index)=> <div key={index}><span>{g}</span><button>X</button></div>)}
         </div>
         <button type="submit">Create</button>
       </form>

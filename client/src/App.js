@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import LandingPage from "./components/LandingPage";
 import "./App.css";
 import CreateVideogame from "./components/CreateVideogame";
-
+import DetailsVideogames from "./components/DetailsVideogames";
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
         <Route exact path="/" component={LandingPage} />
         <Route path="/home" component={Home} />
         <Route path="/create" component={CreateVideogame} />
+        <Route path="/:id" component={DetailsVideogames}/>
       </Switch>
     </BrowserRouter>
   );

@@ -7,7 +7,7 @@ export function LandingPage () {
         <div>
             <h1>Welcome</h1>
             <Link to='/home'>
-                <button>START</button>
+                <button>PLAY</button>
             </Link>
         </div>
     )
