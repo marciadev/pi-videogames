@@ -1,28 +1,32 @@
-const { Videogame } = require("../db.js");
+//const { Videogame } = require("../db.js");
 
-const postVideogame = async(req, res)=>{
-    try {
-        const aVideogame = req.body;
-        let [newVideogame, vg] = await Videogame.findOrCreate({
-            where:{
-                name: aVideogame.name,
-                description:aVideogame.description,
-                releaseDate:aVideogame.releaseDate,
-                rating:aVideogame.rating,
-                platforms:aVideogame.platforms,
-                createdInDb:true
-            }
-        })
-        //console.log("####newVideogame###", newVideogame)
-        //console.log("####vg###", vg)
-        await newVideogame.setGenres(aVideogame.genre)
-        return res.send(newVideogame, "created successfully!");
+// const postVideogame = async(req, res)=>{
+//     try {
+//         const aVideogame = req.body;
+//         let [newVideogame, vg] = await Videogame.findOrCreate({
+//             where:{
+//                 name: aVideogame.name,
+//                 releaseDate:aVideogame.releaseDate,
+//                 rating:aVideogame.rating,
+//                 imageUrl: aVideogame.imageUrl,
+//                 description:aVideogame.description,
+//                 platforms:aVideogame.platforms,
+//                 genres: aVideogame.genres,
+//                 createdInDb:true
+//             }
+//             
+        
+//     })
+//         //console.log("####newVideogame###", newVideogame)
+//         //console.log("####vg###", vg)
+//         await newVideogame.setGenres(aVideogame.genre)
+//         return res.send(newVideogame, "created successfully!");
 
-    } catch (error) {
-        res.status(404).send(error)
-    }
+//     } catch (error) {
+//         res.status(404).send(error)
+//     }
 
-}
+// }
 
 // router.post("/videogame", async (req, res) => {
 //     const { name, id, description, releaseDate, rating, platforms, genre, createdInDb } = req.body;
@@ -45,6 +49,6 @@ const postVideogame = async(req, res)=>{
 //     res.send("Videogame created successfully!");
 //   });
 
-  module.exports = {
-    postVideogame
-  }
+//   module.exports = {
+//     postVideogame
+//   }

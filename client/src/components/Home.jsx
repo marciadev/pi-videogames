@@ -53,7 +53,7 @@ export function Home() {
               <div key={index}>
                 <CardVideogame
                   name={vg.name}
-                  image={vg.image}
+                  imageUrl={vg.imageUrl}
                   genres={vg.genres}
                 />
               </div>
