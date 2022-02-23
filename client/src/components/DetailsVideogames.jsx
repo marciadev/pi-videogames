@@ -16,6 +16,7 @@ export function DetailsVideogames(props) {
   return (
     <div>
       <h1>Details</h1>
+      <script>{console.log(id)}</script>
       <script>{console.log(gameDetails)}</script>
       {gameDetails.length > 0 ? 
         <div>
@@ -24,7 +25,7 @@ export function DetailsVideogames(props) {
           <h3>Released: {gameDetails[0].releaseDate}</h3>
           <h3>Rating: {gameDetails[0].rating}</h3>
           <h3>Genres: {gameDetails[0].genres.map((g, i)=><li key={i}>{g}</li>)}</h3>
-          <h3>Platforms: {gameDetails[0].platforms.map((p, i)=><li key={i}>{p}</li>)}</h3>
+          {/* <h3>Platforms: {gameDetails[0].platforms.map((p, i)=><li key={i}>{p}</li>)}</h3> */}
           <p>Description: {gameDetails[0].description}</p>
         </div>
       : (

@@ -1,12 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getVideogames } from "../actions";
 import { Link } from "react-router-dom";
 import { CardVideogame } from "./CardVideogame";
 import FilterByGenre from "./FilterByGenre";
-import { getGenres } from "../actions";
+import { getGenres, getVideogames } from "../actions";
 import SearchBar from "./SearchBar";
+import Order from "./Order";
 
 export function Home() {
   const dispatch = useDispatch();
@@ -35,17 +35,9 @@ export function Home() {
       >
         Reload videogames
       </button>
-      <FilterByGenre
-        value="value"
-        onChange={(e) => {
-          handleChange(e);
-        }}
-      />
+      <FilterByGenre value="value" onChange={(e) => {handleChange(e)}}/>
       <div>
-        <select>
-          <option value="asc"> Ascendent </option>
-          <option value="desc"> Descendent </option>
-        </select>
+        <Order/>
         <select>
           <option value="all"> All </option>
           <option value="created"> Created </option>
@@ -56,6 +48,7 @@ export function Home() {
             return (
               <div key={index}>
                 <CardVideogame
+                  id={vg.id}
                   name={vg.name}
                   imageUrl={vg.imageUrl}
                   genres={vg.genres}
