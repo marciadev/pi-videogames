@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const GET_GENRES = "GET_GENRES";
-export const GET_DETAILS = "GET_DETAILS"
+export const GET_BY_GENRE = "GET_BY_GENRE";
+export const GET_DETAILS = "GET_DETAILS";
 
 export function getVideogames() {
   return async function (dispatch) {
@@ -24,16 +25,32 @@ export function getGenres() {
   };
 }
 
-export function getDetails(videogameId){
+export function getByGenre(name) {
   return async function (dispatch) {
-    try{
-      let json = await axios.get(`http://localhost:3001/videogames/${videogameId}`);
-      return dispatch ({
-        type: GET_DETAILS,
-        payload: json.data
-      })
-    } catch (error){
-      console.log(error)
+    try {
+      let response = await axios.get(`http://localhost:3001/genres/${name}`);
+      return dispatch({
+        type: GET_BY_GENRE,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
+}
+
+export function getDetails(videogameId) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(
+        `http://localhost:3001/videogames/${videogameId}`
+      );
+      return dispatch({
+        type: GET_DETAILS,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
