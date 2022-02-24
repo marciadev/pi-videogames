@@ -3,6 +3,7 @@ import axios from "axios";
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const GET_GENRES = "GET_GENRES";
 export const GET_BY_GENRE = "GET_BY_GENRE";
+export const SEARCH_VIDEOGAME = "SEARCH_VIDEOGAME";
 export const GET_DETAILS = "GET_DETAILS";
 
 export function getVideogames() {
@@ -37,6 +38,20 @@ export function getByGenre(name) {
       console.log(error);
     }
   };
+}
+
+export function searchVideogame(videogame) {
+  return async function (dispatch){
+    try {
+      let search = await axios.get(`http://localhost:3001/videogames?name=${videogame}`);
+      return dispatch({
+        type: SEARCH_VIDEOGAME,
+        payload: search.payload
+      })
+    }catch(error){
+      console.log(error);
+    }
+  }
 }
 
 export function getDetails(videogameId) {

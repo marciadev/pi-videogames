@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, GET_GENRES, GET_DETAILS, GET_BY_GENRE } from "../actions";
+import { GET_VIDEOGAMES, GET_GENRES, GET_DETAILS, GET_BY_GENRE, SEARCH_VIDEOGAME } from "../actions";
 
 const initialState = {
     filtered: [],
@@ -23,6 +23,11 @@ function rootReducer(state = initialState, action){
             return {
                 ...state,
                 filtered: action.payload
+            }
+        case SEARCH_VIDEOGAME:
+            return {
+                ...state,
+                filtered: state.filtered.filter(vg => vg.name === action.payload)
             }
         case GET_DETAILS:
             return {

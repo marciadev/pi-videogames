@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { CardVideogame } from "./CardVideogame";
 import FilterByGenre from "./FilterByGenre";
-import { getByGenre, getVideogames } from "../actions";
+import { getVideogames } from "../actions";
 import SearchBar from "./SearchBar";
 import Order from "./Order";
 
@@ -14,7 +14,7 @@ export function Home() {
 
   useEffect(() => {
     dispatch(getVideogames());
-  }, []);
+  }, [dispatch]);
 
   const handleClick = (e) => {
     dispatch(getVideogames(e));

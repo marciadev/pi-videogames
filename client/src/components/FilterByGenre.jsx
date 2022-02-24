@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { getGenres, getByGenre } from "../actions";
@@ -13,11 +13,11 @@ export default function FilterByGenre() {
       label: g.name,
     };
   });
-  console.log(options)
+  //console.log(options)
 
   useEffect(() => {
     dispatch(getGenres());
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     dispatch(getByGenre(e.label))

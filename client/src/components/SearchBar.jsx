@@ -1,29 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getVideogames } from "../actions";
+import { searchVideogame } from "../actions";
 
 export function SearchBar() {
+  const [input, setInput] = useState("");
+  const dispatch = useDispatch();
 
-    const [input, setInput] = useState('')  
-    const dispatch = useDispatch();
+  const handleSearch = () => {
+    dispatch(searchVideogame(input));
+    console.log(input);
+  };
 
-    useEffect(()=>{
-     dispatch(getVideogames(input))
-    },[])
-    
-    const handleChange = (e) => {
-        setInput(e);
-    } 
-
-    const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(getVideogames(input))
-    setInput('');
-    }
   return (
     <div>
-      <input type="text" placeholder="Search..." onChange={(e)=>handleChange(e.target.value)}/>
-      <button onSubmit={(e)=>handleSubmit(e)}>Search</button>
+      <input type="text" placeholder="Search..." onChange={(e) => setInput(e.target.value)}/>
+      <button onClick={(e)=>{handleSearch(e)}}>Search</button>
       <hr></hr>
     </div>
   );
