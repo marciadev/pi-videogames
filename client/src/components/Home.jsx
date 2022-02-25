@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { CardVideogame } from "./CardVideogame";
 import FilterByGenre from "./FilterByGenre";
 import { filteredCreated, getVideogames, orderedByName, orderedByRating } from "../actions";
-import SearchBar from "./SearchBar";
 import Nav from "./Nav";
 
 export function Home() {
