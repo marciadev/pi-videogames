@@ -5,6 +5,9 @@ export const GET_GENRES = "GET_GENRES";
 export const GET_BY_GENRE = "GET_BY_GENRE";
 export const SEARCH_VIDEOGAME = "SEARCH_VIDEOGAME";
 export const GET_DETAILS = "GET_DETAILS";
+export const FILTER_CREATED = "FILTER_CREATED";
+export const ORDER_NAME = "ORDER_NAME";
+export const ORDER_RATING = "ORDER_RATING";
 
 export function getVideogames() {
   return async function (dispatch) {
@@ -41,17 +44,19 @@ export function getByGenre(name) {
 }
 
 export function searchVideogame(videogame) {
-  return async function (dispatch){
+  return async function (dispatch) {
     try {
-      let search = await axios.get(`http://localhost:3001/videogames?name=${videogame}`);
+      let search = await axios.get(
+        `http://localhost:3001/videogames?name=${videogame}`
+      );
       return dispatch({
         type: SEARCH_VIDEOGAME,
-        payload: search.payload
-      })
-    }catch(error){
+        payload: search.payload,
+      });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
 export function getDetails(videogameId) {
@@ -68,4 +73,25 @@ export function getDetails(videogameId) {
       console.log(error);
     }
   };
+}
+
+export function filteredCreated(value){
+  return {
+    type: FILTER_CREATED,
+    payload: value
+  }
+}
+
+export function orderedByName(value){
+  return {
+    type: ORDER_NAME,
+    payload: value
+  }
+}
+
+export function orderedByRating(value){
+  return {
+    type: ORDER_RATING,
+    payload: value
+  }
 }

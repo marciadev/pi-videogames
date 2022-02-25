@@ -51,6 +51,7 @@ const getAllVideogames = async () => {
       platforms: el.platforms,
       imageUrl: el.imageUrl,
       genres: el.genres.map((genre) => genre.name),
+      createdInDb: true
     };
   });
   const result = apiInfo.concat(format);
