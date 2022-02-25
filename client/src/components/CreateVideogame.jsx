@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getGenres } from "../actions";
 import axios from "axios";
+import Select from "react-select";
 import { Link, useHistory } from "react-router-dom";
 
 export function CreateVideogame() {
   const history = useHistory();
   const dispatch = useDispatch();
   const stateGenre = useSelector((state) => state.genres);
-
+  const platforms = ["PC", "PlayStation 3", "PlayStation 4", "PlayStation 5", "macOS", "Linux", "Xbox360", "Android", "Nintendo Switch", "iOS", "Xbox One", "Xbox Series S/X"]
+  
   const [newVideogame, setNewVideogame] = useState({
     name: "",
     releaseDate: "",
@@ -19,12 +21,23 @@ export function CreateVideogame() {
     genres: [],
   });
 
+  const [platform, setPlatform] = useState([])
+
+  const options = platforms.map((pf) => {
+    return {
+      value: pf,
+      label: pf,
+    };
+  });
+
+
   useEffect(() => {
     dispatch(getGenres());
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPlatforms();
     await axios.post("http://localhost:3001/videogame/create", newVideogame)
     alert("Your game was created successfully!");
     setNewVideogame({
@@ -39,11 +52,26 @@ export function CreateVideogame() {
     history.push("/home");
   };
 
+  const setPlatforms = () =>{
+    let pf = '';
+    platform.map(p=>{
+      pf.length == 0 ? pf += p.label : pf += ', ' + p.label 
+    })
+    setNewVideogame({
+      ...newVideogame,
+      platforms: pf
+      })
+  }
+
   const handleChange = (e) => {
     setNewVideogame({
       ...newVideogame,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleChoice = (options) => {
+    setPlatform(options)
   };
 
   const handleSelect = (e) => {
@@ -97,11 +125,7 @@ export function CreateVideogame() {
         </div>
         <div>
         <label>Platforms:</label>
-        <input
-          name="platforms"
-          value={newVideogame.platforms}
-          onChange={handleChange}
-        />
+        <Select isMulti options={options} onChange={(e)=>{handleChoice(e)}}/>
         </div>
         <div>
         <select onChange={(e)=>handleSelect(e)}>

@@ -51,7 +51,7 @@ export function searchVideogame(videogame) {
       );
       return dispatch({
         type: SEARCH_VIDEOGAME,
-        payload: search.payload,
+        payload: search.data,
       });
     } catch (error) {
       console.log(error);

@@ -37,7 +37,7 @@ function rootReducer(state = initialState, action) {
     case SEARCH_VIDEOGAME:
       return {
         ...state,
-        filtered: state.filtered.filter((vg) => vg.name === action.payload),
+        filtered: action.payload,
       };
     case GET_DETAILS:
       return {

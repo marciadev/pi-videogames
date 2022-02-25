@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { CardVideogame } from "./CardVideogame";
 import FilterByGenre from "./FilterByGenre";
 import { filteredCreated, getVideogames, orderedByName, orderedByRating } from "../actions";
 import SearchBar from "./SearchBar";
+import Nav from "./Nav";
 
 export function Home() {
   const dispatch = useDispatch();
@@ -36,16 +36,8 @@ export function Home() {
 
   return (
     <div>
-      <SearchBar />
-      <Link to="/create"> Create Videogame </Link>
       <h1>The Videogames'Corner</h1>
-      <button
-        onClick={(e) => {
-          handleClick(e);
-        }}
-      >
-        Reload videogames
-      </button>
+      <Nav handleClick={handleClick}/>
       <div>
       <label>Filter by genre</label>
       <FilterByGenre />
