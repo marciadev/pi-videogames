@@ -21,8 +21,6 @@ export function CreateVideogame() {
     genres: [],
   });
 
-  const [platform, setPlatform] = useState([])
-
   const options = platforms.map((pf) => {
     return {
       value: pf,
@@ -43,7 +41,6 @@ export function CreateVideogame() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setPlatforms();
     await axios.post("http://localhost:3001/videogame/create", newVideogame)
     alert("Your game was created successfully!");
     setNewVideogame({
@@ -58,18 +55,6 @@ export function CreateVideogame() {
     history.push("/home");
   };
 
-  const setPlatforms = () =>{
-    let pf = '';
-    platform.map(p=>{
-      pf.length === 0 ? pf += p.label : pf += ', ' + p.label 
-    })
-    setNewVideogame({
-      ...newVideogame,
-      platforms: pf
-    })
-  }
-
-
   const handleChange = (e) => {
     setNewVideogame({
       ...newVideogame,
@@ -77,18 +62,24 @@ export function CreateVideogame() {
     });
   };
 
-  const handleChoice = (options) => {
-    setPlatform(options)
-  };
-
   const handleSelect = (e) => {
-    // DO NOT TOUCH
     setNewVideogame({
       ...newVideogame,
       genres: (Array.isArray(e) ? e.map(x => x.value) : []),
     });
   };
 
+  const handleChoice = (options) => {
+    let pf = '';
+    options.map(p=>{
+      pf.length === 0 ? pf += p.label : pf += ', ' + p.label 
+    })
+    setNewVideogame({
+      ...newVideogame,
+      platforms: pf
+    })
+  };
+  
   return (
     <div>
       <Link to='/home'><button>Back</button></Link>

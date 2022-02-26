@@ -10,8 +10,8 @@ export function DetailsVideogames(props) {
 
   const setPlatforms = () =>{
     let pf = '';
-    gameDetails[0].platforms.map(p=>{
-     return pf.length === 0 ? pf += p : pf += ', ' + p 
+    gameDetails.platforms.map(p=>{
+      pf.length === 0 ? pf += p : pf += ', ' + p 
     })
     return pf
   }
@@ -25,15 +25,16 @@ export function DetailsVideogames(props) {
     <div>
       <h1>Details</h1>
       <script>{console.log(gameDetails)}</script>
-      {gameDetails.length > 0 ? 
+      {gameDetails ? 
         <div>
-          <h3>This is {gameDetails[0].name}</h3>
-          <img src={gameDetails[0].imageUrl} alt="pic detail" width='500px' height='350px'/>
-          <h3>Released: {gameDetails[0].releaseDate}</h3>
-          <h3>Rating: {gameDetails[0].rating}</h3>
-          <h3>Genres: {gameDetails[0].genres.map((g, i)=><li key={i}>{g}</li>)}</h3>
-          <h3>Platforms: {gameDetails[0].createdInDb ? gameDetails[0].platforms : setPlatforms()} </h3>
-          <p>Description: {gameDetails[0].description}</p>
+          <h3>This is {gameDetails.name}</h3>
+          <img src={gameDetails.createdInDb ? gameDetails.imageUrl : gameDetails.image} alt="pic detail" width='500px' height='350px'/>
+          <h3>Released: {gameDetails.releaseDate}</h3>
+          <h3>Rating: {gameDetails.rating}</h3>
+          {/* <h3>Genres: {gameDetails.genres.map((g, i)=><li key={i}>{g}</li>)}</h3> */}
+          {/* <h3>Platforms: {gameDetails.createdInDb ? gameDetails.platforms : setPlatforms()} </h3> */}
+          {/* <h3>Platforms: {setPlatforms()} </h3> */}
+          <p>Description: {gameDetails.description}</p>
         </div>
       : (
         <p>Loading...</p>

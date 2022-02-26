@@ -28,16 +28,8 @@ async function getDbVideogames() {
       },
     },
   });
-  return gamesDb
+  return gamesDb;
 }
-
-
-// const getDescription = async (gameId) => {
-//   api = await axios.get(
-//     `https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`
-//   );
-//   console.log("######",api.data.description);
-// };
 
 const getAllVideogames = async () => {
   const apiInfo = await getApiVideogames();
@@ -51,13 +43,32 @@ const getAllVideogames = async () => {
       platforms: el.platforms,
       imageUrl: el.imageUrl,
       genres: el.genres.map((genre) => genre.name),
-      createdInDb: true
+      createdInDb: true,
     };
   });
   const result = apiInfo.concat(format);
   return result;
 };
 
+const getApiDetails = async (gameId) => {
+  const api = await axios.get(
+    `https://api.rawg.io/api/games/${gameId}?key=${API_KEY}`
+  );
+  const apiDetails = await api.data;
+  return {
+    id: apiDetails.id,
+    name: apiDetails.name,
+    description: apiDetails.description_raw,
+    image: apiDetails.background_image,
+    releaseDate: apiDetails.released,
+    rating: apiDetails.rating,
+    platforms: apiDetails.platforms.map((p) => p.platform.name),
+    genres: apiDetails.genres.map((g) => g.name),
+  };
+  //return apiDetails
+};
+
 module.exports = {
   getAllVideogames,
+  getApiDetails,
 };
