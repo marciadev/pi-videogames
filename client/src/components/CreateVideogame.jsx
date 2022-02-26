@@ -37,17 +37,6 @@ export function CreateVideogame() {
     }
   })
 
-  const setPlatforms = () =>{
-    let pf = '';
-    platform.map(p=>{
-      return pf.length === 0 ? pf += p.label : pf += ', ' + p.label 
-    })
-    setNewVideogame({
-      ...newVideogame,
-      platforms: pf
-    })
-  }
-
   useEffect(() => {
     dispatch(getGenres());
   }, []);
@@ -69,6 +58,17 @@ export function CreateVideogame() {
     history.push("/home");
   };
 
+  const setPlatforms = () =>{
+    let pf = '';
+    platform.map(p=>{
+      pf.length === 0 ? pf += p.label : pf += ', ' + p.label 
+    })
+    setNewVideogame({
+      ...newVideogame,
+      platforms: pf
+    })
+  }
+
 
   const handleChange = (e) => {
     setNewVideogame({
@@ -82,11 +82,11 @@ export function CreateVideogame() {
   };
 
   const handleSelect = (e) => {
-    setNewVideogame((newVideogame)=>({
+    // DO NOT TOUCH
+    setNewVideogame({
       ...newVideogame,
-      genres: [...newVideogame.genres, e.value],
-    }));
-    console.log(newVideogame)
+      genres: (Array.isArray(e) ? e.map(x => x.value) : []),
+    });
   };
 
   return (
@@ -136,17 +136,8 @@ export function CreateVideogame() {
         </div>
         <div>
         <label>Genres:</label>
-        <Select isMulti options={genreOptions} onChange={(e)=>{handleSelect(e)}}/>
+         <Select isMulti options={genreOptions} onChange={(e)=>{handleSelect(e)}}/> 
         </div>
-        {/* <div>
-        <select onChange={(e)=>handleSelect(e)}>
-          {stateGenre.length > 0 &&
-            stateGenre.map((gen) => {
-            return <option key={gen.id} value={gen.id}>{gen.name}</option>
-            })}
-        </select>
-        {newVideogame.genres.map((g, index)=> <div key={index}><span>{g}</span><button>X</button></div>)}
-        </div> */}
         <button type="submit">Create</button>
       </form>
     </div>
