@@ -5,11 +5,22 @@ import { CardVideogame } from "./CardVideogame";
 import FilterByGenre from "./FilterByGenre";
 import { filteredCreated, getVideogames, orderedByName, orderedByRating } from "../actions";
 import Nav from "./Nav";
+import Pagination from "./Pagination";
 
 export function Home() {
   const dispatch = useDispatch();
   const allVideogames = useSelector((state) => state.filtered);
   const [orden, setOrden] = useState('')
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const [vgsPerPage] = useState(15)
+  //getCurrentVideogames
+  const lastVg = currentPage * vgsPerPage
+  const firstVg = lastVg - vgsPerPage
+  const currentVg = allVideogames.slice(firstVg, lastVg)
+
+  const paginate = page => setCurrentPage(page)
+
 
   useEffect(() => {
     dispatch(getVideogames());
@@ -41,6 +52,8 @@ export function Home() {
       <label>Filter by genre</label>
       <FilterByGenre />
       </div>
+      <Pagination vgsPerPage={vgsPerPage} totalVgs={allVideogames.length} paginate={paginate}/>
+      {allVideogames.length}
       <div>
         <div>
         <label>Show by origin</label>
@@ -64,8 +77,8 @@ export function Home() {
             <option value="desc"> Descendent </option>
           </select>
         </div>
-        {allVideogames.length > 0 ? (
-          allVideogames.map((vg, index) => {
+        {currentVg.length > 0 ? (
+          currentVg.map((vg, index) => {
             return (
               <div key={index}>
                 <CardVideogame

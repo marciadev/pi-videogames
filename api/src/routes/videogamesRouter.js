@@ -52,17 +52,6 @@ videogamesRouter.get("/", async (req, res) => {
   }
 });
 
-// videogamesRouter.get("/:id", async (req, res) => {
-//   const { id } = req.params;
-//   const videogames = await getAllVideogames();
-//   if (id) {
-//     let videogameId = await videogames.filter((game) => game.id == id);
-//     videogameId.length
-//       ? res.status(200).json(videogameId)
-//       : res.status(404).json("Videogame not found");
-//   }
-// });
-
 videogamesRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
 

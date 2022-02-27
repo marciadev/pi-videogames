@@ -12,7 +12,6 @@ export function DetailsVideogames(props) {
     dispatch(getDetails(id));
   }, []);
 
-
   return (
     <div>
       <h1>Details</h1>
@@ -32,7 +31,6 @@ export function DetailsVideogames(props) {
       <Link to="/home">
         <button>Back</button>
       </Link>
-      <script>{console.log("GameDetails " + gameDetails.genres)}</script>
     </div>
   );
 }

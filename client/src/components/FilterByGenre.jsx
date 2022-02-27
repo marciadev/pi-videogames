@@ -13,7 +13,6 @@ export default function FilterByGenre() {
       label: g.name,
     };
   });
-  //console.log(options)
 
   useEffect(() => {
     dispatch(getGenres());
@@ -22,7 +21,6 @@ export default function FilterByGenre() {
   const handleChange = (e) => {
     dispatch(getByGenre(e.label))
   };
-  
 
   return (
     <div>
