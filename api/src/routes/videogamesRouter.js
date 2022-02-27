@@ -3,6 +3,7 @@ const { Router } = require("express");
 const {
   getAllVideogames,
   getApiDetails,
+  getDbDetails,
 } = require("../controllers/videogamesControllers");
 const { API_KEY } = process.env;
 
@@ -64,10 +65,12 @@ videogamesRouter.get("/", async (req, res) => {
 
 videogamesRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const videogame = await getApiDetails(id);
-  videogame
-    ? res.status(200).json(videogame)
-    : res.status(404).json("Videogame not found");
+
+  let vg 
+  id.length > 4 ? vg = await getDbDetails(id) : vg = await getApiDetails(id)
+  vg ? res.status(200).json(vg) : res.status(404).json("Videogame not found")
+
 });
+
 
 module.exports = videogamesRouter;

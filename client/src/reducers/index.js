@@ -63,8 +63,7 @@ function rootReducer(state = initialState, action) {
                 return -1;
               }
               return 0;
-            })
-          : state.filtered.sort((a, b) => {
+            }) : state.filtered.sort((a, b) => {
               if (a.name > b.name) {
                 return -1;
               }
@@ -87,8 +86,7 @@ function rootReducer(state = initialState, action) {
                 return -1;
               }
               return 0;
-            })
-          : state.filtered.sort((a, b) => {
+          }) : state.filtered.sort((a, b) => {
               if (a.rating > b.rating) {
                 return -1;
               }

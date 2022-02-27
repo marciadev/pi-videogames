@@ -62,9 +62,7 @@ export function searchVideogame(videogame) {
 export function getDetails(videogameId) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(
-        `http://localhost:3001/videogames/${videogameId}`
-      );
+      let json = await axios.get(`http://localhost:3001/videogames/${videogameId}`)
       return dispatch({
         type: GET_DETAILS,
         payload: json.data,
