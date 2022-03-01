@@ -1,0 +1,32 @@
+body {
+    background-image: url("../resources/images/bg.jpg");
+}
+
+.title {
+    font-family: revert;
+    margin-block: revert;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    align-content: center;
+    font-size: xxx-large;
+}
+
+.subtitles {
+    display: flex;
+    font-style: italic;
+    font-weight: 900;
+    padding: 10px;
+    font-size: 25px;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-around;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

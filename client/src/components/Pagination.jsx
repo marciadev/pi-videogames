@@ -1,4 +1,5 @@
 import React from "react";
+import styles from '../styles/Pagination.module.css'
 
 export function Pagination({ vgsPerPage, totalVgs, paginate }) {
   let pageNumbers = [];
@@ -8,12 +9,14 @@ export function Pagination({ vgsPerPage, totalVgs, paginate }) {
   }
 
   return (
-    <nav>
+    <nav className={styles.containerPages}>
+      <div className={styles.buttonsGroup}>
         {pageNumbers.map((page, index) => (
-          <button key={index} className="page-link" onClick={() => paginate(page)}>
+          <button key={index} onClick={() => paginate(page)} className={styles.buttonPage}>
             {page}
           </button>
         ))}
+        </div>
     </nav>
   );
 }

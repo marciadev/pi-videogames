@@ -1,0 +1,22 @@
+.container{
+    padding-right: 5px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    align-content: stretch;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.buttons {
+    border-radius: 4.5px;
+    background-color: green;
+    color: white;
+    font-size: x-large;
+    cursor: pointer;
+}
+
+.buttons:hover{
+    background-color: greenyellow;
+    color: black;
+}
