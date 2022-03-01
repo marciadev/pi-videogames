@@ -12,7 +12,7 @@ export function Pagination({ vgsPerPage, totalVgs, paginate }) {
     <nav className={styles.containerPages}>
       <div className={styles.buttonsGroup}>
         {pageNumbers.map((page, index) => (
-          <button key={index} className="page-link" onClick={() => paginate(page)} className={styles.buttonPage}>
+          <button key={index} onClick={() => paginate(page)} className={styles.buttonPage}>
             {page}
           </button>
         ))}

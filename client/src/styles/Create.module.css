@@ -22,7 +22,7 @@ body {
     border-radius: 5px;
     font-weight: bold;
     margin-bottom: 35px;
-    margin-top: 20px;
+    margin-top: 30px;
     cursor: pointer;
 }
 
@@ -52,4 +52,11 @@ body {
 
 .warningError {
     color: red
+}
+
+.selectors {
+    height: 45px;
+    width: 98%;
+    font-size: 25px;
+    font-family: inherit;
 }

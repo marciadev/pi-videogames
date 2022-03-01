@@ -6,6 +6,7 @@ import styles from '../styles/Details.module.css'
 import Loader from "./Loader";
 
 
+
 export function DetailsVideogames(props) {
   const dispatch = useDispatch();
   const id = props.match.params.id;

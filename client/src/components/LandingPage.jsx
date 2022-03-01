@@ -16,7 +16,7 @@ export function LandingPage () {
             <div className={styles.description}>In this App you will find a wide variety of videogames!</div>
             <div className={styles.description}>You will be able to filter them by genres, sort them by ratings and even create your own videogame choosing different platforms.</div>
             <h2 className={styles.subtitle}>Who's ready for this adventure?</h2>
-            <img src={img}/>
+            <img src={img} alt="presentation pic"/>
             <div>
             <Link to='/home'>
                 <button onClick={e => play(e)} className={styles.buttonPlay}>PLAY</button>
