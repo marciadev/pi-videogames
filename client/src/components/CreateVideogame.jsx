@@ -4,12 +4,13 @@ import { getGenres } from "../actions";
 import axios from "axios";
 import Select from "react-select";
 import { Link, useHistory } from "react-router-dom";
-
+import styles from '../styles/Create.module.css'
 
 export function validate(newVideogame) {
   let errors = {};
+ 
   if (!newVideogame.name) {
-    errors.name = "You need to introduce a name";
+    errors.name = "Introduce a name";
   } else if (!/^[^\W0-9_][a-zA-Z0-9\s]+$/.test(newVideogame.name)){
     errors.name = "Invalid name";
   }
@@ -17,17 +18,17 @@ export function validate(newVideogame) {
    errors.rating = "Rating must be a number between 1-5"
   }
   if (!newVideogame.imageUrl){
-    errors.imageUrl = "Introduce a pic in format jpg, jpeg or png"
+    errors.imageUrl = "Introduce an image in format jpg, jpeg or png"
   }
   if (!newVideogame.description){
     errors.description = "Describe your videogame"
   }
-  // if(newVideogame.platforms.length === 0) {
-  //   errors.platforms = "Choose the platforms"
-  // }
-  // if(!newVideogame.genres) {
-  //   errors.genres = "Choose the genres"
-  // }
+  if(newVideogame.platforms.length === 0) {
+    errors.platforms = "Choose the platforms"
+  }
+  if(newVideogame.genres) {
+    errors.genres = "Choose the genres"
+  }
   return errors;
 }
 
@@ -68,9 +69,9 @@ export function CreateVideogame() {
   }, []);
 
   const handleSubmit = async (e) => {
+    //Object.keys(errors).length === 0 ? alert('All the fields are required') :
     e.preventDefault();
     await axios.post("http://localhost:3001/videogame/create", newVideogame)
-    alert("Your game was created successfully!");
     setNewVideogame({
       name: "",
       releaseDate: "",
@@ -80,6 +81,7 @@ export function CreateVideogame() {
       platforms: "",
       genres: [],
     })
+    alert("Your videogame was created successfully!");
     history.push("/home");
   };
 
@@ -99,6 +101,10 @@ export function CreateVideogame() {
       ...newVideogame,
       genres: (Array.isArray(e) ? e.map(x => x.value) : []),
     });
+    setErrors(validate({
+      ...newVideogame,
+      genres : e.value
+    }))
   };
 
   const handleChoice = (options) => {
@@ -110,65 +116,51 @@ export function CreateVideogame() {
       ...newVideogame,
       platforms: pf
     })
+    setErrors(validate({
+      ...newVideogame,
+      platforms : pf
+    }))
   };
   
   return (
-    <div>
-      <Link to='/home'><button>Back</button></Link>
+    <div className={styles.form}>
       <h1>Create your own Videogame</h1>
       <form onSubmit={(e)=>{handleSubmit(e)}}>
         <div>
-        <label>Name:</label>
-        <input name="name" value={newVideogame.name} onChange={handleChange} />
-        {errors.name}
+        <label className={styles.labels}>Name:</label>
+        <input name="name" value={newVideogame.name} onChange={handleChange} className={styles.inputs}/>
+        <div className={styles.warningError}>{errors.name}</div>
         </div>
         <div>
-        <label>Release Date:</label>
-        <input
-        type='date'
-          name="releaseDate"
-          value={newVideogame.releaseDate}
-          onChange={handleChange}
-        />
-        {errors.releaseDate}
+        <label className={styles.labels}>Release Date:</label>
+        <input type='date' name="releaseDate" value={newVideogame.releaseDate} onChange={handleChange} className={styles.inputs}/>
+        <div className={styles.warningError}>{errors.releaseDate}</div>
         </div>
         <div>
-        <label>Rating:</label>
-        <input
-        type='number' min='0' max='5'
-          name="rating"
-          value={newVideogame.rating}
-          onChange={handleChange}
-        />
-        {errors.rating}
+        <label className={styles.labels}>Rating:</label>
+        <input type='number' min='0' max='5' name="rating" value={newVideogame.rating} onChange={handleChange} className={styles.inputs}/>
+        <div className={styles.warningError}>{errors.rating}</div>
         </div>
         <div>
-        <label>ImageURL:</label>
-        <input
-          name="imageUrl"
-          value={newVideogame.imageUrl}
-          onChange={handleChange}
-        />
-        {errors.imageUrl}
+        <label className={styles.labels}>ImageURL:</label>
+        <input name="imageUrl" value={newVideogame.imageUrl} onChange={handleChange} className={styles.inputs}/>
+        <div className={styles.warningError}>{errors.imageUrl}</div>
         </div>
         <div>
-        <label>Description:</label>
-        <input
-          name="description"
-          value={newVideogame.description}
-          onChange={handleChange}
-        />
-        {errors.description}
+        <label className={styles.labels}>Description:</label>
+        <input name="description" value={newVideogame.description} onChange={handleChange} className={styles.inputs}/>
+        <div className={styles.warningError}>{errors.description}</div>
         </div>
         <div>
-        <label>Platforms:</label>
+        <label className={styles.labels}>Platforms:</label>
         <Select isMulti options={options} onChange={(e)=>{handleChoice(e)}}/>
         </div>
         <div>
-        <label>Genres:</label>
+        <label className={styles.labels}>Genres:</label>
          <Select isMulti options={genreOptions} onChange={(e)=>{handleSelect(e)}}/> 
         </div>
-        <button type="submit" disabled={errors.name || errors.releaseDate || errors.imageUrl || errors.rating || errors.description ? true : false}>Create</button>
+        <Link to='/home'><button  className={styles.button}>Back</button></Link>
+        <button type="submit" disabled={!Object.keys(errors).length === 0 || errors.name || errors.releaseDate || errors.imageUrl || errors.rating || errors.description || errors.platforms || errors.genres} className={styles.button}>Create</button>
       </form>
     </div>
   );

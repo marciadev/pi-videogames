@@ -46,7 +46,7 @@ function rootReducer(state = initialState, action) {
       };
     case FILTER_CREATED:
       const allGames = state.videogames;
-      const videogamesCreated = action.payload === "created"
+      const videogamesCreated = action.payload === "Created"
           ? allGames.filter((el) => el.createdInDb)
           : allGames.filter((el) => !el.createdInDb);
       return {
@@ -54,7 +54,7 @@ function rootReducer(state = initialState, action) {
         filtered: action.payload === "All" ? state.videogames : videogamesCreated,
       };
     case ORDER_NAME:
-      const games = action.payload === "asc"
+      const games = action.payload === "A-Z"
           ? state.filtered.sort((a, b) => {
               if (a.name > b.name) {
                 return 1;
@@ -77,7 +77,7 @@ function rootReducer(state = initialState, action) {
         filtered: games,
       };
     case ORDER_RATING:
-        const gamesRating = action.payload === "asc"
+        const gamesRating = action.payload === "Ascendent"
           ? state.filtered.sort((a, b) => {
               if (a.rating > b.rating) {
                 return 1;

@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetails } from "../actions";
+import styles from '../styles/Details.module.css'
+import Loader from "./Loader";
+
 
 export function DetailsVideogames(props) {
   const dispatch = useDispatch();
@@ -13,23 +16,22 @@ export function DetailsVideogames(props) {
   }, []);
 
   return (
-    <div>
-      <h1>Details</h1>
+    <div className={styles.container}>
       {gameDetails ? 
         <div>
-          <h3>This is {gameDetails.name}</h3>
-          <img src={gameDetails.imageUrl} alt="pic detail" width='500px' height='350px'/>
+          <h1>{gameDetails.name}</h1>
+          <img src={gameDetails.imageUrl} alt="pic detail"  width='350px' height='250px' className={styles.image}/>
           <h3>Released: {gameDetails.releaseDate}</h3>
           <h3>Rating: {gameDetails.rating}</h3>
           <h3>Genres: {gameDetails.genres}</h3>
           <h3>Platforms: {gameDetails.platforms}</h3>
-          <h3>Description: </h3><p>{gameDetails.description}</p>
+          <h3>Description:</h3><span>{gameDetails.description}</span>
         </div>
       : (
-        <p>Loading...</p>
+        <Loader/>
       )}
       <Link to="/home">
-        <button>Back</button>
+        <button className={styles.buttonBack}>Back</button>
       </Link>
     </div>
   );

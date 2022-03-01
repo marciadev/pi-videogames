@@ -56,7 +56,7 @@ videogamesRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   let vg 
-  id.length > 4 ? vg = await getDbDetails(id) : vg = await getApiDetails(id)
+  id.length > 6 ? vg = await getDbDetails(id) : vg = await getApiDetails(id)
   vg ? res.status(200).json(vg) : res.status(404).json("Videogame not found")
 
 });

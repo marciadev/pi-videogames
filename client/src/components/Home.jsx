@@ -3,14 +3,35 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CardVideogame } from "./CardVideogame";
 import FilterByGenre from "./FilterByGenre";
-import { filteredCreated, getVideogames, orderedByName, orderedByRating } from "../actions";
+import { getVideogames, orderedByName, orderedByRating } from "../actions";
 import Nav from "./Nav";
 import Pagination from "./Pagination";
+import styles from '../styles/Home.module.css'
+import Loader from "./Loader";
+import OriginSelector from "./OriginSelector";
+import Select from "react-select";
 
 export function Home() {
   const dispatch = useDispatch();
   const allVideogames = useSelector((state) => state.filtered);
+  
   const [orden, setOrden] = useState('')
+
+  const values = ["A-Z", "Z-A"]
+  const options = values.map(val=>{
+    return {
+      value: val,
+      label: val,
+    }
+  })
+
+  const valuesRating = ["Ascendent", "Descendent"]
+  const optionsRating = valuesRating.map(el=>{
+    return {
+      value: el,
+      label: el,
+    }
+  })
 
   const [currentPage, setCurrentPage] = useState(1)
   const [vgsPerPage] = useState(15)
@@ -30,53 +51,40 @@ export function Home() {
     dispatch(getVideogames(e));
   };
 
-  const handleSelect = (e) => {
-    dispatch(filteredCreated(e.target.value));
-  };
-
   const handleSort = (e) => {
-    dispatch(orderedByName(e.target.value));
-    setOrden(`Ordenado${e.target.value}`)
+    dispatch(orderedByName(e.label));
+    setOrden(`Ordenado${e.label}`)
   }
 
   const handleOrder = (e) => {
-    dispatch(orderedByRating(e.target.value));
-    setOrden(`Ordenado${e.target.value}`)
+    dispatch(orderedByRating(e.label));
+    setOrden(`Ordenado${e.label}`)
   }
 
   return (
     <div>
-      <h1>The Videogames'Corner</h1>
+      <h1 className={styles.title}>The Videogames Cave</h1>
       <Nav handleClick={handleClick}/>
-      <div>
-      <label>Filter by genre</label>
-      <FilterByGenre />
+      <div className={styles.filters}>
+        <div>
+      <label className={styles.subtitles}>Filter by genre</label>
+      <FilterByGenre/>
       </div>
-      <Pagination vgsPerPage={vgsPerPage} totalVgs={allVideogames.length} paginate={paginate}/>
-      {allVideogames.length}
-      <div>
         <div>
-        <label>Show by origin</label>
-        <select onChange={handleSelect}>
-          <option value="all"> All </option>
-          <option value="created"> Created </option>
-          <option value="api"> Existing </option>
-        </select>
+        <label className={styles.subtitles}>Show by origin</label>
+        <OriginSelector/>
         </div>
         <div>
-        <label>Sort alphabetically</label>
-          <select onChange={(e)=>{handleSort(e)}}>
-            <option value="asc"> A-Z</option>
-            <option value="desc"> Z-A </option>
-          </select>
+        <label className={styles.subtitles}>Sort alphabetically</label>
+        <Select options={options} onChange={(e)=>{handleSort(e)}}/>
         </div>
         <div>
-        <label>Sort by rating</label>
-          <select onChange={(e)=>{handleOrder(e)}}>
-            <option value="asc"> Ascendent </option>
-            <option value="desc"> Descendent </option>
-          </select>
+        <label className={styles.subtitles}>Sort by rating</label>
+        <Select options={optionsRating} onChange={(e)=>{handleOrder(e)}}/>
         </div>
+      </div>
+        <Pagination vgsPerPage={vgsPerPage} totalVgs={allVideogames.length} paginate={paginate}/>
+        <div className={styles.cards}>
         {currentVg.length > 0 ? (
           currentVg.map((vg, index) => {
             return (
@@ -91,7 +99,7 @@ export function Home() {
             );
           })
         ) : (
-          <h1>Loading...</h1>
+        <Loader/>
         )}
       </div>
     </div>
