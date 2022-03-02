@@ -84,32 +84,39 @@ export function CreateVideogame() {
   const handleSelect = (e) => {
     setNewVideogame({
       ...newVideogame,
-      genres: newVideogame.genres, ...newVideogame.genres.push(e.target.value)
+      genres: newVideogame.genres.includes(e.target.value) ? newVideogame.genres : newVideogame.genres, ...newVideogame.genres.push(e.target.value),
     });
     setErrors(validate({
       ...newVideogame,
       genres : newVideogame.genres
     }))
   };
-
+  
   const handleChoice = (op) => {
-    let pf= '';
-    
-    let plat = pf.concat(op.target.value)
-    // let pf = '';
-    // options.map(p=>{
-    //   pf.length === 0 ? pf += p.label : pf += ', ' + p.label 
-    //
     setNewVideogame({
       ...newVideogame,
-      platforms: newVideogame.platforms.concat(plat)
+      platforms: !newVideogame.platforms.includes(op.target.value) ? newVideogame.platforms.concat(newVideogame.platforms.length > 0 ? ", " + op.target.value : op.target.value) : newVideogame.platforms
     })
     setErrors(validate({
       ...newVideogame,
       platforms : op.target.value
     }))
-    console.log(op)
   };
+
+  const handleResetPlatforms = (e) => {
+    e.preventDefault()
+    setNewVideogame({
+      ...newVideogame,
+      platforms: ''
+    })
+  }
+  const handleResetGenres = (e) => {
+    e.preventDefault()
+    setNewVideogame({
+      ...newVideogame,
+      genres: []
+    })
+  }
   
   return (
     <div className={styles.form}>
@@ -142,16 +149,23 @@ export function CreateVideogame() {
         </div>
         <div>
         <label className={styles.labels}>Platforms:</label>
-        <select className={styles.selectors} onChange={handleChoice}>{platformsArr.map((op, i) =>{
-          return <option value={op} key={i}>{op}</option>
-        })}</select>
+        <select className={styles.selectors} onChange={handleChoice}>
+          <option disabled selected>Select platforms...</option> 
+          {platformsArr.map((op, i) =>{return <option value={op} key={i}>{op}</option>})}
+        </select>
+        <div>{newVideogame.platforms}</div>
+        <button onClick={(e)=>handleResetPlatforms(e)} className={styles.buttonReset}>Reset</button>
         <div className={styles.warningError}>{errors.platforms}</div>
         </div>
         <div>
         <label className={styles.labels}>Genres:</label>
-         <select className={styles.selectors} onChange={handleSelect}>{stateGenre.map((op, i) =>{
+         <select className={styles.selectors} onChange={handleSelect}>
+         <option disabled selected>Select genres...</option> 
+           {stateGenre.map((op, i) =>{
           return <option value={op.id} key={i}>{op.name}</option>
         })}</select>
+        <button onClick={(e)=>handleResetGenres(e)} className={styles.buttonReset}>Reset</button>
+        <div>{newVideogame.genres.map(g=>g + ", ")}</div>
          <div className={styles.warningError}>{errors.genres}</div>
         </div>
         <Link to='/home'><button  className={styles.button}>Back</button></Link>

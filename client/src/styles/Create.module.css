@@ -22,7 +22,7 @@ body {
     border-radius: 5px;
     font-weight: bold;
     margin-bottom: 35px;
-    margin-top: 30px;
+    margin-top: 40px;
     cursor: pointer;
 }
 
@@ -59,4 +59,16 @@ body {
     width: 98%;
     font-size: 25px;
     font-family: inherit;
+}
+
+.buttonReset {
+    background: rgb(148, 243, 4);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.buttonReset:hover {
+    color: white;
+    box-shadow: 0 10px 25px rgba(22, 100, 8, .6);
 }

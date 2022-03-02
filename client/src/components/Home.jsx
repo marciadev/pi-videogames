@@ -9,7 +9,9 @@ import Pagination from "./Pagination";
 import styles from '../styles/Home.module.css'
 import Loader from "./Loader";
 import OriginSelector from "./OriginSelector";
-import Select from "react-select";
+import pic from '../resources/images/music-note-.png'
+import { Link } from "react-router-dom";
+//import play from './LandingPage'
 
 export function Home() {
   const dispatch = useDispatch();
@@ -18,20 +20,8 @@ export function Home() {
   const [orden, setOrden] = useState('')
 
   const values = ["A-Z", "Z-A"]
-  const options = values.map(val=>{
-    return {
-      value: val,
-      label: val,
-    }
-  })
 
   const valuesRating = ["Ascendent", "Descendent"]
-  const optionsRating = valuesRating.map(el=>{
-    return {
-      value: el,
-      label: el,
-    }
-  })
 
   const [currentPage, setCurrentPage] = useState(1)
   const [vgsPerPage] = useState(15)
@@ -42,7 +32,6 @@ export function Home() {
 
   const paginate = page => setCurrentPage(page)
 
-
   useEffect(() => {
     dispatch(getVideogames());
   }, [dispatch]);
@@ -52,23 +41,28 @@ export function Home() {
   };
 
   const handleSort = (e) => {
-    dispatch(orderedByName(e.label));
-    setOrden(`Ordenado${e.label}`)
+    dispatch(orderedByName(e.target.value));
+    setOrden(`Ordenado${e.target.value}`)
   }
 
   const handleOrder = (e) => {
-    dispatch(orderedByRating(e.label));
-    setOrden(`Ordenado${e.label}`)
+    dispatch(orderedByRating(e.target.value));
+    setOrden(`Ordenado${e.target.value}`)
   }
+
+  // const handlePlay = (e) =>{
+  //   play(audio.pause())
+  // }
 
   return (
     <div>
+      <Link><img src={pic} alt='music' className={styles.pic}/></Link>
       <h1 className={styles.title}>The Videogames Cave</h1>
       <Nav handleClick={handleClick}/>
       <div className={styles.filters}>
         <div>
       <label className={styles.subtitles}>Filter by genre</label>
-      <FilterByGenre/>
+      <FilterByGenre />
       </div>
         <div>
         <label className={styles.subtitles}>Show by origin</label>
@@ -76,11 +70,15 @@ export function Home() {
         </div>
         <div>
         <label className={styles.subtitles}>Sort alphabetically</label>
-        <Select options={options} onChange={(e)=>{handleSort(e)}}/>
+        <select className={styles.selectors} onChange={(e)=>{handleSort(e)}}>{values.map((op,i)=>{
+           return <option value={op} key={i}>{op}</option>})}
+          </select>
         </div>
         <div>
         <label className={styles.subtitles}>Sort by rating</label>
-        <Select options={optionsRating} onChange={(e)=>{handleOrder(e)}}/>
+        <select className={styles.selectors} onChange={(e)=>{handleOrder(e)}}>{valuesRating.map((op,i)=>{
+            return <option value={op} key={i}>{op}</option> })}
+          </select>
         </div>
       </div>
         <Pagination vgsPerPage={vgsPerPage} totalVgs={allVideogames.length} paginate={paginate}/>
