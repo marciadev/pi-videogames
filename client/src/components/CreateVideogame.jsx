@@ -36,6 +36,7 @@ export function CreateVideogame() {
   const history = useHistory();
   const dispatch = useDispatch();
   const stateGenre = useSelector((state) => state.genres);
+  const stateVideogames = useSelector((state)=> state.videogames);
   const platformsArr = ["PC", "PlayStation 3", "PlayStation 4", "PlayStation 5", "macOS", "Linux", "Xbox360", "Android", "Nintendo Switch", "iOS", "Xbox One", "Xbox Series S/X"]
   
   const [errors, setErrors] = useState({})
@@ -54,8 +55,16 @@ export function CreateVideogame() {
     dispatch(getGenres());
   }, []);
 
+  const validateName = (name) => {
+    let validate = stateVideogames.map(el => el.name)
+    return validate.includes(name) 
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(validateName(newVideogame.name)){
+      alert(`${newVideogame.name} already exists`)
+    }else{
     setNewVideogame({
       name: "",
       releaseDate: "",
@@ -66,8 +75,9 @@ export function CreateVideogame() {
       genres: [],
     })
     await axios.post("http://localhost:3001/videogame/create", newVideogame)
-    alert("Your videogame was created successfully!");
-    history.push("/home");
+    alert(`${newVideogame.name} was created successfully!`)
+    history.push("/home")
+    }
   };
 
   const handleChange = (e) => {
@@ -82,9 +92,10 @@ export function CreateVideogame() {
   };
 
   const handleSelect = (e) => {
+    updGenres(e)
     setNewVideogame({
       ...newVideogame,
-      genres: newVideogame.genres, ...newVideogame.genres.push(e.target.value)
+      genres: newVideogame.genres.includes(e.target.value) ? newVideogame.genres : newVideogame.genres.push(e.target.value),
     });
     setErrors(validate({
       ...newVideogame,
@@ -92,25 +103,44 @@ export function CreateVideogame() {
     }))
   };
 
+  const updGenres = (g) => {
+    let arr = newVideogame.genres
+    let val = g.target.value
+    arr = arr.includes(val) ? arr : arr.push(val)
+  }
+
   const handleChoice = (op) => {
-    let pf= '';
-    
-    let plat = pf.concat(op.target.value)
-    // let pf = '';
-    // options.map(p=>{
-    //   pf.length === 0 ? pf += p.label : pf += ', ' + p.label 
-    //
     setNewVideogame({
       ...newVideogame,
-      platforms: newVideogame.platforms.concat(plat)
+      platforms: !newVideogame.platforms.includes(op.target.value) ? newVideogame.platforms.concat(newVideogame.platforms.length > 0 ? ", " + op.target.value : op.target.value) : newVideogame.platforms
     })
     setErrors(validate({
       ...newVideogame,
       platforms : op.target.value
     }))
-    console.log(op)
   };
+
+  const handleResetPlatforms = (e) => {
+    e.preventDefault()
+    setNewVideogame({
+      ...newVideogame,
+      platforms: ''
+    })
+  }
+  const handleResetGenres = (e) => {
+    e.preventDefault()
+    setNewVideogame({
+      ...newVideogame,
+      genres: []
+    })
+  }
   
+  const getGname = (g) => {
+    let label
+    stateGenre.map(o => o.id == g ? label = o.name : false)
+    return label
+  }
+
   return (
     <div className={styles.form}>
       <h1>Create your own Videogame</h1>
@@ -127,7 +157,7 @@ export function CreateVideogame() {
         </div>
         <div>
         <label className={styles.labels}>Rating:</label>
-        <input type='number' min='0' max='5' name="rating" value={newVideogame.rating} onChange={handleChange} className={styles.inputs}/>
+        <input type='number' min='0' max='5' name="rating" step="0.01" value={newVideogame.rating} onChange={handleChange} className={styles.inputs}/>
         <div className={styles.warningError}>{errors.rating}</div>
         </div>
         <div>
@@ -142,20 +172,27 @@ export function CreateVideogame() {
         </div>
         <div>
         <label className={styles.labels}>Platforms:</label>
-        <select className={styles.selectors} onChange={handleChoice}>{platformsArr.map((op, i) =>{
-          return <option value={op} key={i}>{op}</option>
-        })}</select>
+        <select className={styles.selectors} onChange={handleChoice}>
+          <option disabled selected>Select platforms...</option> 
+          {platformsArr.map((op, i) =>{return <option value={op} key={i}>{op}</option>})}
+        </select>
+        <div>{newVideogame.platforms}</div>
+        <button onClick={(e)=>handleResetPlatforms(e)} className={styles.buttonReset}>Reset</button>
         <div className={styles.warningError}>{errors.platforms}</div>
         </div>
         <div>
         <label className={styles.labels}>Genres:</label>
-         <select className={styles.selectors} onChange={handleSelect}>{stateGenre.map((op, i) =>{
+         <select className={styles.selectors} onChange={handleSelect}>
+         <option disabled selected>Select genres...</option> 
+           {stateGenre.map((op, i) =>{
           return <option value={op.id} key={i}>{op.name}</option>
         })}</select>
-         <div className={styles.warningError}>{errors.genres}</div>
+        <button onClick={(e)=>handleResetGenres(e)} className={styles.buttonReset}>Reset</button>
+        <div>{newVideogame.genres.map(g => getGname(g)).join(", ")}</div>
+        <div className={styles.warningError}>{errors.genres}</div>
         </div>
         <Link to='/home'><button  className={styles.button}>Back</button></Link>
-        <button type="submit" disabled={!Object.keys(errors).length === 0 || errors.name || errors.releaseDate || errors.imageUrl || errors.rating || errors.description || errors.platforms || errors.genres} className={styles.button}>Create</button>
+        <button type="submit" disabled={!newVideogame.name || !newVideogame.releaseDate || !newVideogame.imageUrl || !newVideogame.rating || !newVideogame.description || !newVideogame.platforms || !newVideogame.genres.length} className={styles.button}>Create</button>
       </form>
     </div>
   );

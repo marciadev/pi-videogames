@@ -5,10 +5,10 @@ import img from '../resources/images/character.png'
 
 export function LandingPage () {
 
-    function play(){
-        let audio = new Audio('https://vgmsite.com/soundtracks/super-mario-bros/khbnvkqp/01%20-%20Super%20Mario%20Bros.mp3');
-        audio.play();
-    }
+    // function play(){
+    //     let audio = new Audio('https://vgmsite.com/soundtracks/super-mario-bros/khbnvkqp/01%20-%20Super%20Mario%20Bros.mp3');
+    //     audio.play();
+    // }
 
     return (
         <div className={styles.container}>
@@ -19,7 +19,7 @@ export function LandingPage () {
             <img src={img} alt="presentation pic"/>
             <div>
             <Link to='/home'>
-                <button onClick={e => play(e)} className={styles.buttonPlay}>PLAY</button>
+                <button className={styles.buttonPlay}>PLAY</button>
             </Link>
             </div>
         </div>

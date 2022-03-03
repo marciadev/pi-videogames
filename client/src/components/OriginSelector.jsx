@@ -1,7 +1,7 @@
 import React from "react";
-import Select from "react-select";
 import { useDispatch } from "react-redux";
 import { filteredCreated } from "../actions";
+import styles from '../styles/Home.module.css'
 
 export function OriginSelector(){
 
@@ -9,19 +9,18 @@ export function OriginSelector(){
 
     const origin = ["All", "Created", "Api"]
 
-    const options = origin.map(o=> {
-        return {
-            value: o,
-            label: o,
-        }
-    })
-
     const handleSelect = (e) => {
-        dispatch(filteredCreated(e.label));
+        dispatch(filteredCreated(e.target.value));
       };
 
     return (
-        <Select options={options} onChange={(e)=>{handleSelect(e)}}/>
+        <div>
+            <select className={styles.selectors} onChange={(e)=>{handleSelect(e)}}>
+                {origin.map((op,i)=>{
+                    return <option value={op} key={i}>{op}</option>
+                })}
+            </select>
+        </div>
     )
 }
 

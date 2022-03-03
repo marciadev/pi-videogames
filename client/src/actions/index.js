@@ -38,7 +38,7 @@ export function getByGenre(name) {
         payload: response.data,
       });
     } catch (error) {
-      console.log(error);
+      console.log('GENRE NOT FOUND',error);
     }
   };
 }
@@ -54,7 +54,7 @@ export function searchVideogame(videogame) {
         payload: search.data,
       });
     } catch (error) {
-      console.log(error);
+      console.log('NO RECORD FOUND', error);
     }
   };
 }
@@ -68,7 +68,7 @@ export function getDetails(videogameId) {
         payload: json.data,
       });
     } catch (error) {
-      console.log(error);
+      console.log('NO FOUND', error);
     }
   };
 }
