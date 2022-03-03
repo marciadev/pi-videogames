@@ -36,6 +36,7 @@ export function CreateVideogame() {
   const history = useHistory();
   const dispatch = useDispatch();
   const stateGenre = useSelector((state) => state.genres);
+  const stateVideogames = useSelector((state)=> state.videogames);
   const platformsArr = ["PC", "PlayStation 3", "PlayStation 4", "PlayStation 5", "macOS", "Linux", "Xbox360", "Android", "Nintendo Switch", "iOS", "Xbox One", "Xbox Series S/X"]
   
   const [errors, setErrors] = useState({})
@@ -54,8 +55,16 @@ export function CreateVideogame() {
     dispatch(getGenres());
   }, []);
 
+  const validateName = (name) => {
+    let validate = stateVideogames.map(el => el.name)
+    return validate.includes(name) 
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(validateName(newVideogame.name)){
+      alert(`${newVideogame.name} already exists`)
+    }else{
     setNewVideogame({
       name: "",
       releaseDate: "",
@@ -66,8 +75,9 @@ export function CreateVideogame() {
       genres: [],
     })
     await axios.post("http://localhost:3001/videogame/create", newVideogame)
-    alert("Your videogame was created successfully!");
-    history.push("/home");
+    alert(`${newVideogame.name} was created successfully!`)
+    history.push("/home")
+    }
   };
 
   const handleChange = (e) => {
@@ -82,16 +92,23 @@ export function CreateVideogame() {
   };
 
   const handleSelect = (e) => {
+    updGenres(e)
     setNewVideogame({
       ...newVideogame,
-      genres: newVideogame.genres.includes(e.target.value) ? newVideogame.genres : newVideogame.genres, ...newVideogame.genres.push(e.target.value),
+      genres: newVideogame.genres.includes(e.target.value) ? newVideogame.genres : newVideogame.genres.push(e.target.value),
     });
     setErrors(validate({
       ...newVideogame,
       genres : newVideogame.genres
     }))
   };
-  
+
+  const updGenres = (g) => {
+    let arr = newVideogame.genres
+    let val = g.target.value
+    arr = arr.includes(val) ? arr : arr.push(val)
+  }
+
   const handleChoice = (op) => {
     setNewVideogame({
       ...newVideogame,
@@ -118,6 +135,12 @@ export function CreateVideogame() {
     })
   }
   
+  const getGname = (g) => {
+    let label
+    stateGenre.map(o => o.id == g ? label = o.name : false)
+    return label
+  }
+
   return (
     <div className={styles.form}>
       <h1>Create your own Videogame</h1>
@@ -134,7 +157,7 @@ export function CreateVideogame() {
         </div>
         <div>
         <label className={styles.labels}>Rating:</label>
-        <input type='number' min='0' max='5' name="rating" value={newVideogame.rating} onChange={handleChange} className={styles.inputs}/>
+        <input type='number' min='0' max='5' name="rating" step="0.01" value={newVideogame.rating} onChange={handleChange} className={styles.inputs}/>
         <div className={styles.warningError}>{errors.rating}</div>
         </div>
         <div>
@@ -165,11 +188,11 @@ export function CreateVideogame() {
           return <option value={op.id} key={i}>{op.name}</option>
         })}</select>
         <button onClick={(e)=>handleResetGenres(e)} className={styles.buttonReset}>Reset</button>
-        <div>{newVideogame.genres.map(g=>g + ", ")}</div>
-         <div className={styles.warningError}>{errors.genres}</div>
+        <div>{newVideogame.genres.map(g => getGname(g)).join(", ")}</div>
+        <div className={styles.warningError}>{errors.genres}</div>
         </div>
         <Link to='/home'><button  className={styles.button}>Back</button></Link>
-        <button type="submit" disabled={!Object.keys(errors).length === 0 || errors.name || errors.releaseDate || errors.imageUrl || errors.rating || errors.description || errors.platforms || errors.genres} className={styles.button}>Create</button>
+        <button type="submit" disabled={!newVideogame.name || !newVideogame.releaseDate || !newVideogame.imageUrl || !newVideogame.rating || !newVideogame.description || !newVideogame.platforms || !newVideogame.genres.length} className={styles.button}>Create</button>
       </form>
     </div>
   );

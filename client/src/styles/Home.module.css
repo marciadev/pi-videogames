@@ -10,6 +10,11 @@ body {
     flex-wrap: wrap;
     align-content: center;
     font-size: xxx-large;
+
+    background-color: #008000;
+	color: white;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 42px #94f304, 0 0 82px #0fa,0 0 92px #94f304;
+    padding: 20px;
 }
 
 .subtitles {

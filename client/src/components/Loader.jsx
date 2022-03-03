@@ -1,10 +1,12 @@
 import React from "react";
-import loader from "../resources/images/ZF6H.gif"
+import styles from '../styles/Loader.module.css'
+import loader from "../resources/images/street17.gif"
 
 export function Loader (){
     return(
         <div>
-            <img src={loader} alt='loading...'/>
+            <img src={loader} alt='loading...' width="500px" />
+            <h2 className={styles.loader}>LOADING...</h2>
         </div>
     )
 }

@@ -9,9 +9,6 @@ import Pagination from "./Pagination";
 import styles from '../styles/Home.module.css'
 import Loader from "./Loader";
 import OriginSelector from "./OriginSelector";
-import pic from '../resources/images/music-note-.png'
-import { Link } from "react-router-dom";
-//import play from './LandingPage'
 
 export function Home() {
   const dispatch = useDispatch();
@@ -56,7 +53,6 @@ export function Home() {
 
   return (
     <div>
-      <Link><img src={pic} alt='music' className={styles.pic}/></Link>
       <h1 className={styles.title}>The Videogames Cave</h1>
       <Nav handleClick={handleClick}/>
       <div className={styles.filters}>

@@ -1,0 +1,8 @@
+.loader {
+    background-color: black;
+    border-radius: 20px;
+	color: white;
+	font-size: 30px;
+	text-align: center;	 
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 42px #0fa, 0 0 82px #0fa,0 0 92px #0fa;
+  }
