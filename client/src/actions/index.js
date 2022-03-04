@@ -10,86 +10,101 @@ export const ORDER_NAME = "ORDER_NAME";
 export const ORDER_RATING = "ORDER_RATING";
 
 export function getVideogames() {
-  return async function (dispatch) {
-    const json = await axios("http://localhost:3001/videogames");
-    return dispatch({
-      type: GET_VIDEOGAMES,
-      payload: json.data,
-    });
+  return function (dispatch) {
+    return axios
+      .get("http://localhost:3001/videogames")
+      .then((response) => response.data)
+      .then((data) => {
+        dispatch({
+          type: GET_VIDEOGAMES,
+          payload: data,
+        });
+      });
   };
 }
 
 export function getGenres() {
-  return async function (dispatch) {
-    let response = await axios.get("http://localhost:3001/genres");
-    return dispatch({
-      type: GET_GENRES,
-      payload: response.data,
-    });
+  return function (dispatch) {
+    return axios
+      .get("http://localhost:3001/genres")
+      .then((response) => response.data)
+      .then((data) => {
+        dispatch({
+          type: GET_GENRES,
+          payload: data,
+        });
+      });
   };
 }
 
 export function getByGenre(name) {
-  return async function (dispatch) {
-    try {
-      let response = await axios.get(`http://localhost:3001/genres/${name}`);
-      return dispatch({
-        type: GET_BY_GENRE,
-        payload: response.data,
+  return function (dispatch) {
+    return axios
+      .get(`http://localhost:3001/genres/${name}`)
+      .then((response) => response.data)
+      .then((data) => {
+        dispatch({
+          type: GET_BY_GENRE,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        console.log("GENRE NOT FOUND", error);
       });
-    } catch (error) {
-      console.log('GENRE NOT FOUND',error);
-    }
   };
 }
 
 export function searchVideogame(videogame) {
-  return async function (dispatch) {
-    try {
-      let search = await axios.get(
-        `http://localhost:3001/videogames?name=${videogame}`
-      );
-      return dispatch({
-        type: SEARCH_VIDEOGAME,
-        payload: search.data,
+  return function (dispatch) {
+    return axios
+      .get(`http://localhost:3001/videogames?name=${videogame}`)
+      .then((response) => response.data)
+      .then((data) => {
+        dispatch({
+          type: SEARCH_VIDEOGAME,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        alert("VIDEOGAME NOT FOUND", error);
       });
-    } catch (error) {
-      console.log('NO RECORD FOUND', error);
-    }
   };
 }
 
 export function getDetails(videogameId) {
-  return async function (dispatch) {
-    try {
-      let json = await axios.get(`http://localhost:3001/videogames/${videogameId}`)
-      return dispatch({
-        type: GET_DETAILS,
-        payload: json.data,
+  return function (dispatch) {
+    return axios
+      .get(`http://localhost:3001/videogames/${videogameId}`)
+      .then((response) => response.data)
+      .then((data) => {
+        dispatch({
+          type: GET_DETAILS,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        alert("VIDEOGAME NOT FOUND", error);
       });
-    } catch (error) {
-      console.log('NO FOUND', error);
-    }
   };
 }
 
-export function filteredCreated(value){
+export function filteredCreated(value) {
   return {
     type: FILTER_CREATED,
-    payload: value
-  }
+    payload: value,
+  };
 }
 
-export function orderedByName(value){
+export function orderedByName(value) {
   return {
     type: ORDER_NAME,
-    payload: value
-  }
+    payload: value,
+  };
 }
 
-export function orderedByRating(value){
+export function orderedByRating(value) {
   return {
     type: ORDER_RATING,
-    payload: value
-  }
+    payload: value,
+  };
 }

@@ -4,12 +4,6 @@ import styles from '../styles/Landing.module.css'
 import img from '../resources/images/character.png'
 
 export function LandingPage () {
-
-    // function play(){
-    //     let audio = new Audio('https://vgmsite.com/soundtracks/super-mario-bros/khbnvkqp/01%20-%20Super%20Mario%20Bros.mp3');
-    //     audio.play();
-    // }
-
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Welcome to the Videogames' Cave!</h1>

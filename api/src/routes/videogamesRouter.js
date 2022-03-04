@@ -11,7 +11,7 @@ videogamesRouter.get("/", async (req, res) => {
   const { name } = req.query;
   const videogames = await getAllVideogames();
   if (name) {
-    const videogameName = await videogames.filter((game) =>
+    const videogameName = videogames.filter((game) =>
       game.name.toLowerCase().includes(name.toLowerCase())
     );
     videogameName.length

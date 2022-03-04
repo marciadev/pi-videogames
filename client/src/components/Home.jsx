@@ -22,7 +22,7 @@ export function Home() {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [vgsPerPage] = useState(15)
-  //getCurrentVideogames
+
   const lastVg = currentPage * vgsPerPage
   const firstVg = lastVg - vgsPerPage
   const currentVg = allVideogames.slice(firstVg, lastVg)
@@ -46,10 +46,6 @@ export function Home() {
     dispatch(orderedByRating(e.target.value));
     setOrden(`Ordenado${e.target.value}`)
   }
-
-  // const handlePlay = (e) =>{
-  //   play(audio.pause())
-  // }
 
   return (
     <div>
