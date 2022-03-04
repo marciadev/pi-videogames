@@ -45,7 +45,29 @@ const getByGenre = async (req, res) => {
   }
 };
 
+const createGenre = async (req, res) => {
+  const {name} = req.body
+  try {
+    
+    const newGenre = await Genre.create({
+      name: name,
+      
+    })
+
+    res.send(newGenre)
+
+  } catch (error) {
+    console.log(error)
+    res.send(error)
+  }
+ 
+
+  console.log(newGenre)
+
+}
+
 module.exports = {
   getGenres,
   getByGenre,
+  createGenre
 };

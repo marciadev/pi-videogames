@@ -73,7 +73,7 @@ const getApiDetails = async (gameId) => {
 };
 
 async function getDbDetails(idVg) {
-  const gamesDbDetails = await Videogame.findAll({
+  const gamesDbDetails = await Videogame.findByPk({
     where: { id: idVg },
     include: {
       model: Genre,
