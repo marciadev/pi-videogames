@@ -9,6 +9,7 @@ export const FILTER_CREATED = "FILTER_CREATED";
 export const ORDER_NAME = "ORDER_NAME";
 export const ORDER_RATING = "ORDER_RATING";
 
+
 export function getVideogames() {
   return function (dispatch) {
     return axios
@@ -108,3 +109,4 @@ export function orderedByRating(value) {
     payload: value,
   };
 }
+

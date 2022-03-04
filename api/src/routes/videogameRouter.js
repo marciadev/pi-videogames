@@ -7,18 +7,9 @@ const videogameRouter = Router();
 
 videogameRouter.post("/create", async (req, res) => {
   try {
-    const {
-        name,
-        releaseDate,
-        rating,
-        imageUrl,
-        description,
-        platforms,
-        genres,
-    } = req.body;
+    const { name, releaseDate, rating, imageUrl, description, platforms, genres } = req.body;
     
     const videogameCreated = await Videogame.create({
-      
         name: name,
         releaseDate: releaseDate,
         imageUrl: imageUrl,

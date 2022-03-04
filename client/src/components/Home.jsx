@@ -39,12 +39,12 @@ export function Home() {
 
   const handleSort = (e) => {
     dispatch(orderedByName(e.target.value));
-    setOrden(`Ordenado${e.target.value}`)
+    setOrden(`Ordenado ${e.target.value}`)
   }
 
   const handleOrder = (e) => {
     dispatch(orderedByRating(e.target.value));
-    setOrden(`Ordenado${e.target.value}`)
+    setOrden(`Ordenado ${e.target.value}`)
   }
 
   return (
