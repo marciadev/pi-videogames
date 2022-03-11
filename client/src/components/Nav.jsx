@@ -7,8 +7,8 @@ export function Nav({handleClick}) {
   return (
     <nav className={styles.container}>
       <SearchBar />
+      <button onClick={(e) => {handleClick(e)}} className={styles.buttons}>Reload Videogames</button>
       <Link to="/create"><button onClick={(e) => {handleClick(e)}} className={styles.buttons}>Create Videogame</button></Link>
-      <button onClick={(e) => {handleClick(e)}} className={styles.buttons}>Reload videogames</button>
     </nav>
   );
 }

@@ -177,7 +177,7 @@ export function CreateVideogame() {
           {platformsArr.map((op, i) =>{return <option value={op} key={i}>{op}</option>})}
         </select>
         <div>{newVideogame.platforms}</div>
-        <button onClick={(e)=>handleResetPlatforms(e)} className={styles.buttonReset}>Reset</button>
+        <button onClick={(e)=>handleResetPlatforms(e)} className={styles.buttonReset}>Clear</button>
         <div className={styles.warningError}>{errors.platforms}</div>
         </div>
         <div>
@@ -187,7 +187,7 @@ export function CreateVideogame() {
            {stateGenre.map((op, i) =>{
           return <option value={op.id} key={i}>{op.name}</option>
         })}</select>
-        <button onClick={(e)=>handleResetGenres(e)} className={styles.buttonReset}>Reset</button>
+        <button onClick={(e)=>handleResetGenres(e)} className={styles.buttonReset}>Clear</button>
         <div>{newVideogame.genres.map(g => getGname(g)).join(", ")}</div>
         <div className={styles.warningError}>{errors.genres}</div>
         </div>

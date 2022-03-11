@@ -1,7 +1,7 @@
 .container{
     padding-right: 5px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top: 5px;
     margin-bottom: 20px;
     align-content: stretch;
@@ -14,6 +14,7 @@
     color: white;
     font-size: x-large;
     cursor: pointer;
+    height: 34px;
 }
 
 .buttons:hover{

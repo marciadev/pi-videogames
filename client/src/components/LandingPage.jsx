@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import styles from '../styles/Landing.module.css'
 import img from '../resources/images/character.png'
 
+
+
 export function LandingPage () {
+    
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Welcome to the Videogames' Cave!</h1>

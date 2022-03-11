@@ -11,6 +11,7 @@ import Loader from "./Loader";
 import OriginSelector from "./OriginSelector";
 
 export function Home() {
+
   const dispatch = useDispatch();
   const allVideogames = useSelector((state) => state.filtered);
   
@@ -28,6 +29,7 @@ export function Home() {
   const currentVg = allVideogames.slice(firstVg, lastVg)
 
   const paginate = page => setCurrentPage(page)
+
 
   useEffect(() => {
     dispatch(getVideogames());
@@ -49,7 +51,7 @@ export function Home() {
 
   return (
     <div>
-      <h1 className={styles.title}>The Videogames Cave</h1>
+      <div className={styles.newDiv}>
       <Nav handleClick={handleClick}/>
       <div className={styles.filters}>
         <div>
@@ -73,6 +75,7 @@ export function Home() {
           </select>
         </div>
       </div>
+      </div>
         <Pagination vgsPerPage={vgsPerPage} totalVgs={allVideogames.length} paginate={paginate}/>
         <div className={styles.cards}>
         {currentVg.length > 0 ? (
@@ -84,6 +87,7 @@ export function Home() {
                   name={vg.name}
                   imageUrl={vg.imageUrl}
                   genres={vg.genres}
+                  rating={vg.rating}
                 />
               </div>
             );

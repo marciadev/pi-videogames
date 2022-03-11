@@ -1,14 +1,16 @@
 import React from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import LandingPage from "./components/LandingPage";
 import "./App.css";
 import CreateVideogame from "./components/CreateVideogame";
 import DetailsVideogames from "./components/DetailsVideogames";
+import Header from "./components/Header";
 
 function App() {
   return (
     <BrowserRouter>
+      <Header/>
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route path="/home" component={Home} />
